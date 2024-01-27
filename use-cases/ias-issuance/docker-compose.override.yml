@@ -1,0 +1,6 @@
+services:
+  load-agent:
+    environment: 
+      - INVITATION_URL=${INVITATION_URL}
+      - IAS_CONTROLLER_URL=${IAS_CONTROLLER_URL}
+      - IAS_CONTROLLER_API_KEY=${IAS_CONTROLLER_API_KEY}
