@@ -17,7 +17,7 @@ class CustomLocust(User):
         super().__init__(*args,**kwargs)
 
         # override the issuer with our custom IAS one
-        from issuerAgent.iasController import IasControllerIssuer
+        from agents.issuer.ias_controller import IasControllerIssuer
         
         self.client = CustomClient(self.host)
         self.client.issuer = IasControllerIssuer()
@@ -34,16 +34,8 @@ class UserBehaviour(SequentialTaskSet):
         connection = self.client.accept_invite(self.invite['invitation_url'], True)
         self.connection = connection
 
-        # Call the IAS endpoint that issues the credential
-        credential = self.client.receive_credential(self.connection)
-
     def on_stop(self):
         self.client.shutdown()
-
-    @task
-    def dummy_task(self):
-        # This is a dummy task that does nothing
-        pass
 
     # @task
     # def get_invite(self):
@@ -57,9 +49,9 @@ class UserBehaviour(SequentialTaskSet):
     #     connection = self.client.accept_invite(self.invite['invitation_url'])
     #     self.connection = connection
 
-    # @task
-    # def receive_credential(self):
-    #     credential = self.client.receive_credential(self.connection)
+    @task
+    def receive_credential(self):
+        credential = self.client.receive_credential(self.connection)
 
 class Issue(CustomLocust):
     tasks = [UserBehaviour]
