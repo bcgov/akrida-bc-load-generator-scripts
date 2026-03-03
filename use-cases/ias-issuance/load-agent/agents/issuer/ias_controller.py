@@ -5,6 +5,9 @@ import requests
 import time
 
 class IasControllerIssuer(BaseIssuer):
+        def __init__(self):
+                super().__init__()
+
         def issue_credential(self, did):
                 print(f"DEBUG: IAS issue_credential to DID: {did}")
 
@@ -24,3 +27,8 @@ class IasControllerIssuer(BaseIssuer):
                         print(f"Error from IAS issue cred API call: {r.status_code} {r.text}")
 
                 return {}
+
+        def revoke_credential(self, connection_id, credential_exchange_id):
+                # IAS Controller revocation not implemented for these load tests
+                print(f"DEBUG: IAS revoke_credential called for connection_id: {connection_id}, credential_exchange_id: {credential_exchange_id}")
+                pass

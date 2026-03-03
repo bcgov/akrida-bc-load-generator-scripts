@@ -19,7 +19,7 @@ class CustomLocust(User):
         super().__init__(*args,**kwargs)
 
         # override the issuer with our custom IAS one
-        from issuerAgent.iasController import IasControllerIssuer
+        from agents.issuer.ias_controller import IasControllerIssuer
         
         self.client = CustomClient(self.host)
         self.client.issuer = IasControllerIssuer()
